@@ -1,0 +1,130 @@
+## 회사 MITM에 대처하는 자세
+
+회사에서 MITM을 걸고 있기 때문에, `curl` 등의 명령어는 전부 실패한다.
+
+```bash
+$ curl https://google.com
+curl: (60) SSL certificate problem: self signed certificate in certificate chain
+More details here: http://curl.haxx.se/docs/sslcerts.html
+
+curl performs SSL certificate verification by default, using a "bundle"
+ of Certificate Authority (CA) public keys (CA certs). If the default
+ bundle file isn't adequate, you can specify an alternate file
+ using the --cacert option.
+If this HTTPS server uses a certificate signed by a CA represented in
+ the bundle, the certificate verification probably failed due to a
+ problem with the certificate (it might be expired, or the name might
+ not match the domain name in the URL).
+If you'd like to turn off curl's verification of the certificate, use
+ the -k (or --insecure) option.
+ ```
+
+ `curl`이 MITM 인증서를 신뢰하지 않기 때문에 실패한다.
+
+ `curl`에 `-k` 옵션을 사용하는 방법도 있겠지만, 다른 스크립트 등에서 `curl`을 사용하는 경우 `-k` 옵션을 주지 못하기 때문에 실패한다.
+
+ 이를 해결하기 위해서 `CURL_CA_BUNDLE` 환경 변수에 회사에서 제공하는 MITM 인증서 경로를 설정하면, `curl`은 무사히 넘어간다.
+
+ 아니면 `curl -v https://google.com` 명령어를 통해 `curl`이 시스템 인증서를 읽어오는 경로를 확인하고, 경로에 인증서를 넣어주는 방법도 있다.
+
+ ```bash
+ $ curl -v https://google.com
+ * Rebuilt URL to: https://google.com/
+*   Trying 216.58.197.142...
+* Connected to google.com (216.58.197.142) port 443 (#0)
+* found 148 certificates in /etc/ssl/certs/ca-certificates.crt
+* found 593 certificates in /etc/ssl/certs
+...
+```
+
+하지만 시스템 전역적으로 허용하긴 싫으니 넘어간다.
+
+이제 `terraform`을 보자
+
+`terraform init`을 하면 처참하게 실패한다.
+
+```bash
+Initializing provider plugins...
+- Checking for available provider plugins on https://releases.hashicorp.com...
+
+Error installing provider "archive": Get https://releases.hashicorp.com/terraform-provider-archive/: x509: certificate signed by unknown authority.
+
+Terraform analyses the configuration and state and automatically downloads
+plugins for the providers used. However, when attempting to download this
+plugin an unexpected error occured.
+
+This may be caused if for some reason Terraform is unable to reach the
+plugin repository. The repository may be unreachable if access is blocked
+by a firewall.
+
+If automatic installation is not possible or desirable in your environment,
+you may alternatively manually install plugins by downloading a suitable
+distribution package and placing the plugin's executable file in the
+following directory:
+    terraform.d/plugins/linux_amd64
+```
+
+오류를 봐선 `curl` 등을 사용하는게 아닌 것 같다
+
+코드를 보자
+
+https://github.com/golang/go/blob/master/src/crypto/x509/root_linux.go
+
+```go
+// Copyright 2015 The Go Authors. All rights reserved.
+// Use of this source code is governed by a BSD-style
+// license that can be found in the LICENSE file.
+
+package x509
+
+// Possible certificate files; stop after finding one.
+var certFiles = []string{
+	"/etc/ssl/certs/ca-certificates.crt",                // Debian/Ubuntu/Gentoo etc.
+	"/etc/pki/tls/certs/ca-bundle.crt",                  // Fedora/RHEL 6
+	"/etc/ssl/ca-bundle.pem",                            // OpenSUSE
+	"/etc/pki/tls/cacert.pem",                           // OpenELEC
+	"/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem", // CentOS/RHEL 7
+
+```
+
+시스템의 인증서 파일을 직접 읽어서 사용하고 있다.
+
+결국 회사의 MITM 인증서를 시스템에 전역적으로 깔 수 밖에 없겠다.
+
+Ubuntu 같은 경우는 `/etc/ssl/certs`에 인증서의 심볼릭 링크를 만들어 주고, `update-ca-certificates` 명령을 실행해 주면 된다.
+
+이제 `npm`을 실행해 보자
+
+```bash
+npm ERR! node v6.11.4
+npm ERR! npm  v3.10.10
+npm ERR! code SELF_SIGNED_CERT_IN_CHAIN
+
+npm ERR! self signed certificate in certificate chain
+npm ERR!
+npm ERR! If you need help, you may report this error at:
+npm ERR!     <https://github.com/npm/npm/issues>
+```
+
+시스템에 인증서를 설치했으나.. 처참하게 실패한다
+
+이쯤되니 더 파보기 귀찮다. 내 생산성을 처참히 갉아먹는다. 그냥 SSL 옵션을 하나 끄도록 하자.
+
+```bash
+$ npm config set strict-ssl false
+```
+
+이제 `git`을 실행해 볼까?
+
+```bash
+fatal: unable to access 'https://xxxxxxxxxxxxxxxxxxxxx.git/': SSL certificate problem: self signed certificate in certificate chain
+error: Could not fetch origin
+```
+
+......
+
+`git`의 SSL 옵션도 끄자
+
+```bash
+$ git config -g http.sslVerify "false"
+```
