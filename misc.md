@@ -39,6 +39,8 @@ If you'd like to turn off curl's verification of the certificate, use
 
 하지만 시스템 전역적으로 허용하긴 싫으니 넘어간다.
 
+### terraform
+
 이제 `terraform`을 보자
 
 `terraform init`을 하면 처참하게 실패한다.
@@ -93,6 +95,8 @@ var certFiles = []string{
 
 Ubuntu 같은 경우는 `/etc/ssl/certs`에 인증서의 심볼릭 링크를 만들어 주고, `update-ca-certificates` 명령을 실행해 주면 된다.
 
+### npm
+
 이제 `npm`을 실행해 보자
 
 ```bash
@@ -114,6 +118,8 @@ npm ERR!     <https://github.com/npm/npm/issues>
 $ npm config set strict-ssl false
 ```
 
+### git
+
 이제 `git`을 실행해 볼까?
 
 ```bash
@@ -128,3 +134,43 @@ error: Could not fetch origin
 ```bash
 $ git config -g http.sslVerify "false"
 ```
+
+### docker
+
+`docker`도 사용해 볼까?
+
+```bash
+$ docker pull gcr.io/etcd-development/etcd:v3.2.9                                          1
+Error response from daemon: Get https://gcr.io/v1/_ping: x509: certificate signed by unknown authority
+```
+
+역시나 인증서 에러가 난다.
+
+이 경우엔 insecure registry로 등록해 주면 해결된다.
+
+`/etc/docker/daemon.json` 파일을 열어서 다음 내용을 채워주고, docker daemon을 재시작 한다.
+
+```json
+{
+    "insecure-registries" : [ "gcr.io" ]
+}
+```
+
+### pip
+
+python을 쓴다면 `pip`도 사용하게 된다.
+
+```bash
+$ pip install xxxxx==1.1.1
+Downloading/unpacking xxxxx==1.1.1
+  Getting page https://pypi.python.org/simple/xxxxx/
+  Could not fetch URL https://pypi.python.org/simple/xxxxx/: connection error: [Errno 1] _ssl.c:510: error:14090086:SSL routines:SSL3_GET_SERVER_CERTIFICATE:certificate verify failed
+```
+
+또 인증서 에러가 난다.
+
+`pip`의 경우엔 `--trusted-host` 또는 `PIP_TRUSTED_HOST` 환경변수에 `pypi.python.org`를 넣어서 해결할 수 있다.
+
+하지만 `pip` 버전이 낮은 경우엔 지원되지 않는 옵션이기 때문에...
+
+높은 버전의 `pip`의 `.whl` 파일을 `pypi.python.org`에서 수동으로 받아서 깔아주고, 수행한다.
