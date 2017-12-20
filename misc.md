@@ -135,16 +135,25 @@ error: Could not fetch origin
 $ git config -g http.sslVerify "false"
 ```
 
+### WSL
+
+`WSL(Windows Subsystem for Linux)` 환경에서는 또 다른 문제가 있다. Windows 쪽에 설치한 MITM 인증서를 읽어오지 않는 것 같다.
+
+위에서 언급했던 Ubuntu 설정은 (`/etc/ssl/certs`에 넣는..) 통하지 않아 보인다.
+
+대신 `/usr/local/share/ca-certificates`에 인증서를 넣고, `sudo dpkg-reconfigure ca-certificates`를 설정해주면 된다.
+
+
 ### docker
 
 `docker`도 사용해 볼까?
 
 ```bash
-$ docker pull gcr.io/etcd-development/etcd:v3.2.9                                          1
+$ docker pull gcr.io/etcd-development/etcd:v3.2.9
 Error response from daemon: Get https://gcr.io/v1/_ping: x509: certificate signed by unknown authority
 ```
 
-역시나 인증서 에러가 난다.
+인증서 에러가 난다.
 
 이 경우엔 insecure registry로 등록해 주면 해결된다.
 
