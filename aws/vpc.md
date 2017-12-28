@@ -24,3 +24,18 @@ http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_Subnets.html
 
 > If a subnet doesn't have a route to the internet gateway, the subnet is known as a private subnet.
 
+Q. Internet access?
+
+> You can connect an instance in a private subnet to the internet through the NAT device, which routes traffic from the instance to the internet gateway, and routes any responses to the instance.
+
+### Subnet Routing
+
+> Each subnet must be associated with a route table, which specifies the allowed routes for outbound traffic leaving the subnet. 
+
+![](2017-12-29-02-42-53.png)
+
+## Connection between two VPCs
+
+VPC Peering connection
+
+http://docs.aws.amazon.com/AmazonVPC/latest/PeeringGuide/Welcome.html
