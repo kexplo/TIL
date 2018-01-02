@@ -4,7 +4,7 @@ document: http://docs.ansible.com/ansible/latest/intro_getting_started.html
 
 ## Installation
 
-Latest releases:
+Latest releases (Debian):
 
 ```bash
 $ sudo apt-get update
@@ -12,6 +12,12 @@ $ sudo apt-get install software-properties-common
 $ sudo apt-add-repository ppa:ansible/ansible
 $ sudo apt-get update
 $ sudo apt-get install ansible
+```
+
+pip:
+
+```bash
+$ pip install ansible
 ```
 
 ## Remote Connection Information
