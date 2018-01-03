@@ -5,3 +5,4 @@
 nameserver <nameserver-ip>
 ```
 
+then, `sudo resolvconf -u`
