@@ -30,3 +30,75 @@ $ pip install ansible
 ## Dynamic Inventory
 
 ## Ad-hoc command
+
+
+## Async
+
+http://docs.ansible.com/ansible/latest/playbooks_async.html
+
+## Serial
+
+## Strategies
+
+reference: http://docs.ansible.com/ansible/latest/playbooks_strategies.html
+
+
+> `strategy`, by default plays will still run as they used to, with what we call the linear strategy. All hosts will run each task before any host starts the next task, using the number of forks (default 5) to parallelize.
+>
+> The `serial` directive can ‘batch’ this behaviour to a subset of the hosts, which then run to completion of the play before the next ‘batch’ starts.
+>
+> A second `strategy` ships with ansible `free`, which allows each host to run until the end of the play as fast as it can.
+
+
+## Blocks
+
+reference: http://docs.ansible.com/ansible/latest/playbooks_blocks.html
+
+> a block feature to allow for logical grouping of tasks and even in play error handling.
+
+-----
+
+
+## apt - Manages apt-packages
+
+reference: http://docs.ansible.com/ansible/latest/apt_module.html
+
+```yml
+- name Install 'foo' package
+  apt:
+    name: foo
+    state: present
+``
+
+## copy - Copies files to remote locations
+
+reference: http://docs.ansible.com/ansible/latest/copy_module.html
+
+| parameter | description |
+|-----------|-------------|
+| src       | Local path to a file to copy to the remote server; can be absolute or relative. If path is a directory, it is copied recursively. In this case, if path ends with "/", only inside contents of that directory are copied to destination. Otherwise, if it does not end with "/", the directory itself with all contents is copied. This behavior is similar to Rsync. |
+
+```yml
+- copy:
+    src: /src/file/path
+    dest: /dest/file/path
+```
+
+-----
+
+## Disable host key checking
+
+in the `/etc/ansible/ansible.cfg` or `~/.ansible.cfg`
+
+```ini
+[defaults]
+host_key_checking = False
+```
+
+Or
+
+```bash
+$ export ANSIBLE_HOST_KEY_CHECKING=False
+```
+
+reference: https://stackoverflow.com/a/23094433
