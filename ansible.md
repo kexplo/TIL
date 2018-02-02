@@ -84,6 +84,29 @@ reference: http://docs.ansible.com/ansible/latest/copy_module.html
     dest: /dest/file/path
 ```
 
+
+## lineinfile - Ensure a particular line is in a file, or replace an existing line using a back-referenced regular expression
+
+reference: http://docs.ansible.com/ansible/latest/lineinfile_module.html
+
+
+```yml
+- lineinfile:
+    path: /etc/blahblahblah
+    line: '127.0.0.1'
+
+- lineinfile:
+    path: /etc/selinux/config
+    regexp: '^SELINUX='
+    line: 'SELINUX=enforcing'
+
+- lineinfile:
+    path: /etc/httpd/conf/httpd.conf
+    regexp: '^Listen '
+    insertafter: '^#Listen '
+    line: 'Listen 8080'
+```
+
 -----
 
 ## Disable host key checking
