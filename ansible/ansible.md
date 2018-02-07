@@ -106,22 +106,3 @@ reference: http://docs.ansible.com/ansible/latest/lineinfile_module.html
     insertafter: '^#Listen '
     line: 'Listen 8080'
 ```
-
------
-
-## Disable host key checking
-
-in the `/etc/ansible/ansible.cfg` or `~/.ansible.cfg`
-
-```ini
-[defaults]
-host_key_checking = False
-```
-
-Or
-
-```bash
-$ export ANSIBLE_HOST_KEY_CHECKING=False
-```
-
-reference: https://stackoverflow.com/a/23094433
