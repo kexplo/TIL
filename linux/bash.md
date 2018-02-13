@@ -1,5 +1,21 @@
 # bash script
 
+## Unofficial Strict Mode
+
+```bash
+#!/bin/bash
+set -euo pipefail
+#    ││└─ 'set -o pipefail' will cause a pipeline to return a failure status 
+#    ││   if any command fails.
+#    │└ Treat unset variables and parameters other than the special parameters
+#    │  ‘@’ or ‘*’ as an error when performing parameter expansion.
+#    └ Exit immediately if a pipeline, which may consist of a single 
+#      simple command, a list, or a compound command returns a non-zero status. 
+#
+# SEE: https://www.gnu.org/software/bash/manual/bashref.html#The-Set-Builtin
+```
+
+
 ## check environment variable value
 
 ```bash
