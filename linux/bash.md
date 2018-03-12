@@ -87,3 +87,15 @@ or
 ```bash
 ENV=xxxx command blahblah
 ```
+
+
+## Snippets
+
+### Write file with cat
+
+```bash
+cat << 'EOF'| tee '/path/to/file'
+blah blah
+blah blah
+EOF
+```
