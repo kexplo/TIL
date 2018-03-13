@@ -1,6 +1,7 @@
 ## Disable host key checking
 
-in the `/etc/ansible/ansible.cfg` or `~/.ansible.cfg`
+in the `/etc/ansible/ansible.cfg` or `~/.ansible.cfg` or `./ansible.cfg`
+vi
 
 ```ini
 [defaults]
@@ -25,3 +26,19 @@ reference: https://github.com/ansible/ansible/issues/22633#issuecomment-29395686
 
 
 It would need to at least have `'_meta': {'hostvars': {}}`
+
+
+## run_once
+
+`When used together with “serial”, tasks marked as “run_once” will be run on one host in each serial batch.`
+
+```yml
+---
+- hosts: webservers[0]
+```
+
+```yml
+- name: run once task
+  shell: '..'
+  when: inventory_hostname == webservers[0]
+```
