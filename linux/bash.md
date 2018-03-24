@@ -74,7 +74,7 @@ fi
 ```
 
 
-# pass environment variable
+## pass environment variable
 
 ```bash
 export ENV=xxx
@@ -87,6 +87,45 @@ or
 ```bash
 ENV=xxxx command blahblah
 ```
+
+## declare
+
+```
+SYNTAX
+      declare [-afFrxi] [-p] [name[=value]]
+
+OPTIONS
+
+      -a  Each name is an array variable.
+
+      -f   Use function names only.
+
+      -F   Inhibit the display of function definitions; 
+           only the function name and attributes are printed. 
+           (implies -f)
+
+      -i   The variable is to be treated as an integer; 
+           arithmetic evaluation is performed when the 
+           variable is assigned a value.
+
+      -p   Display the attributes and values of each name. 
+           When `-p' is used, additional options are ignored.
+
+      -r   Make names readonly. These names cannot then
+           be assigned values by subsequent assignment statements 
+           or unset.
+
+      -x   Mark each name for export to subsequent commands
+           via the environment.
+```
+
+
+## What is difference in `declare -r` and `readonly` in bash?
+
+reference: https://stackoverflow.com/a/30362832/1545387
+
+So one difference is `readonly` will make the variable scope global.  `declare` makes variable scope local (which is expected).
+Note: adding `-g` flag to the `declare` statement (e.g. `declare -rg a="a1"`) makes the variable scope global. 
 
 
 ## Snippets
