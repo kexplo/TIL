@@ -128,6 +128,13 @@ So one difference is `readonly` will make the variable scope global.  `declare` 
 Note: adding `-g` flag to the `declare` statement (e.g. `declare -rg a="a1"`) makes the variable scope global. 
 
 
+## Getting the source directory of a Bash script from within
+
+```bash
+# from: https://stackoverflow.com/a/246128/1545387
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+```
+
 ## Snippets
 
 ### Write file with cat
