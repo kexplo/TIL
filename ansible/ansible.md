@@ -27,9 +27,377 @@ $ pip install ansible
 
 ## Inventory
 
+doc: http://docs.ansible.com/ansible/latest/user_guide/intro_inventory.html
+
+Ansible works against multiple systems in your infrastructure at the same time. It does this by selecting portions of systems listed in Ansible’s inventory, which defaults to being saved in the location `/etc/ansible/hosts`. You can specify a different inventory file using the `-i <path>` option on the command line.
+
+### Host and Groups
+
+INI format:
+
+```ini
+mail.example.com
+
+[webservers]
+foo.example.com
+bar.example.com
+
+[dbservers]
+one.example.com
+two.example.com
+three.example.com
+```
+
+YAML format:
+
+```yml
+all:
+  hosts:
+    mail.example.com:
+  children:
+    webservers:
+      hosts:
+        foo.example.com:
+        bar.example.com:
+    dbservers:
+      hosts:
+        one.example.com:
+        two.example.com:
+        three.example.com:
+```
+
+To make things explicit, it is suggested that you set them if things are not running on the default port:
+
+```ini
+jumper ansible_port=5555 ansible_host=192.0.2.50
+```
+
+```yml
+...
+  hosts:
+    jumper:
+      ansible_port: 5555
+      ansible_host: 192.0.2.50
+```
+
+### Patterns
+
+```ini
+[webservers]
+www[01:50].example.com
+```
+
+```ini
+[databases]
+db-[a:f].example.com
+```
+
+### Group Variable
+
+```ini
+[atlanta]
+host1
+host2
+
+[atlanta:vars]
+ntp_server=ntp.atlanta.example.com
+proxy=proxy.atlanta.example.com
+```
+
+```yml
+atlanta:
+  hosts:
+    host1:
+    host2:
+  vars:
+    ntp_server: ntp.atlanta.example.com
+    proxy: proxy.atlanta.example.com
+```
+
+
+### Groups of Groups
+
+```ini
+[atlanta]
+host1
+host2
+
+[raleigh]
+host2
+host3
+
+[southeast:children]
+atlanta
+raleigh
+
+[southeast:vars]
+some_server=foo.southeast.example.com
+halon_system_timeout=30
+self_destruct_countdown=60
+escape_pods=2
+
+[usa:children]
+southeast
+northeast
+southwest
+northwest
+```
+
+```yml
+all:
+  children:
+    usa:
+      children:
+        southeast:
+          children:
+            atlanta:
+              hosts:
+                host1:
+                host2:
+            raleigh:
+              hosts:
+                host2:
+                host3:
+          vars:
+            some_server: foo.southeast.example.com
+            halon_system_timeout: 30
+            self_destruct_countdown: 60
+            escape_pods: 2
+        northeast:
+        northwest:
+        southwest:
+```
+
+### Default Groups
+
+- `all` : contains every host.
+- `ungrouped` : contains all hosts that don't have another group aside from `all`
+
 ## Dynamic Inventory
 
+
+
 ## Ad-hoc command
+
+doc: http://docs.ansible.com/ansible/latest/user_guide/intro_adhoc.html
+
+
+## Playbook
+
+doc: http://docs.ansible.com/ansible/latest/user_guide/playbooks_intro.html
+
+> Playbooks are a completely different way to use ansible than in adhoc task execution mode, and are particularly powerful.
+
+example:
+
+```yml
+---
+- hosts: webservers
+  vars:
+    http_port: 80
+    max_clients: 200
+  remote_user: root
+  tasks:
+  - name: ensure apache is at the latest version
+    yum:
+      name: httpd
+      state: latest
+  - name: write the apache config file
+    template:
+      src: /srv/httpd.j2
+      dest: /etc/httpd.conf
+    notify:
+    - restart apache
+  - name: ensure apache is running (and enable it at boot)
+    service:
+      name: httpd
+      state: started
+      enabled: yes
+  handlers:
+    - name: restart apache
+      service:
+        name: httpd
+        state: restarted
+```
+
+
+### Handlers: Running Operations on Change
+
+```yml
+- name: template configuration file
+  template:
+    src: template.j2
+    dest: /etc/foo.conf
+  notify:
+     - restart memcached
+     - restart apache
+```
+
+```yml
+handlers:
+    - name: restart memcached
+      service:
+        name: memcached
+        state: restarted
+    - name: restart apache
+      service:
+        name: apache
+        state: restarted
+```
+
+As of Ansible 2.2, handlers can also “listen” to generic topics, and tasks can notify those topics as follows:
+
+```yml
+handlers:
+    - name: restart memcached
+      service:
+        name: memcached
+        state: restarted
+      listen: "restart web services"
+    - name: restart apache
+      service:
+        name: apache
+        state:restarted
+      listen: "restart web services"
+
+tasks:
+    - name: restart everything
+      command: echo "this task will restart the web services"
+      notify: "restart web services"
+```
+
+### Loop
+
+```yml
+- name: add several users
+  user:
+    name: "{{ item }}"
+    state: present
+    groups: "wheel"
+  loop:
+     - testuser1
+     - testuser2
+```
+
+
+before 2.5:
+
+```yml
+- name: add several users
+  user:
+    name: "{{ item }}"
+    state: present
+    groups: "wheel"
+  with_items:
+     - testuser1
+     - testuser2
+```
+
+
+### Filter
+
+Filters in Ansible are from Jinja2, and are used for transforming data inside a template expression. Jinja2 ships with many filters. See [builtin filters](http://jinja.pocoo.org/docs/templates/#builtin-filters) in the official Jinja2 template documentation.
+
+```yml
+{{ some_variable | to_json }}
+{{ some_variable | to_yaml }}
+```
+
+```yml
+tasks:
+  - shell: cat /some/path/to/file.json
+    register: result
+
+  - set_fact:
+      myvar: "{{ result.stdout | from_json }}"
+```
+
+
+### Conditionals
+
+```yml
+tasks:
+  - name: "shut down Debian flavored systems"
+    command: /sbin/shutdown -t now
+    when: ansible_os_family == "Debian"
+    # note that Ansible facts and vars like ansible_os_family can be used
+    # directly in conditionals without double curly braces
+```
+
+### Syntax check
+
+To check the syntax of a playbook, use `ansible-playbook` with the `--syntax-check` flag. This will run the playbook file through the parser to ensure its included files, roles, etc. have no syntax problems.
+
+
+## Role
+
+doc: http://docs.ansible.com/ansible/latest/user_guide/playbooks_reuse_roles.html
+
+Example project structure:
+
+```
+site.yml
+webservers.yml
+fooservers.yml
+roles/
+   common/
+     tasks/
+     handlers/
+     files/
+     templates/
+     vars/
+     defaults/
+     meta/
+   webservers/
+     tasks/
+     defaults/
+     meta/
+```
+
+- `tasks` - contains the main list of tasks to be executed by the role.
+- `handlers` - contains handlers, which may be used by this role or even anywhere outside this role.
+- `defaults` - default variables for the role (see Variables for more information).
+- `vars` - other variables for the role (see Variables for more information).
+- `files` - contains files which can be deployed via this role.
+- `templates` - contains templates which can be deployed via this role.
+- `meta` - defines some meta data for this role. See below for more details.
+
+
+### Example
+
+```yml
+# roles/example/tasks/main.yml
+- name: added in 2.4, previously you used 'include'
+  import_tasks: redhat.yml
+  when: ansible_os_platform|lower == 'redhat'
+- import_tasks: debian.yml
+  when: ansible_os_platform|lower == 'debian'
+
+# roles/example/tasks/redhat.yml
+- yum:
+    name: "httpd"
+    state: present
+
+# roles/example/tasks/debian.yml
+- apt:
+    name: "apache2"
+    state: present
+```
+
+Using role:
+
+```yml
+---
+- hosts: webservers
+  roles:
+     - common
+     - webservers
+```
+
+
+## Ansible-Pull
+
+The ansible-pull is a small script that will checkout a repo of configuration instructions from git, and then run ansible-playbook against that content.
 
 
 ## Async
@@ -59,7 +427,11 @@ reference: http://docs.ansible.com/ansible/latest/playbooks_blocks.html
 -----
 
 
-## apt - Manages apt-packages
+## Modules
+
+http://docs.ansible.com/ansible/latest/modules/list_of_all_modules.html
+
+### aupt - Manages apt-packages
 
 reference: http://docs.ansible.com/ansible/latest/apt_module.html
 
@@ -85,7 +457,7 @@ reference: http://docs.ansible.com/ansible/latest/copy_module.html
 ```
 
 
-## lineinfile - Ensure a particular line is in a file, or replace an existing line using a back-referenced regular expression
+### lineinfile - Ensure a particular line is in a file, or replace an existing line using a back-referenced regular expression
 
 reference: http://docs.ansible.com/ansible/latest/lineinfile_module.html
 
