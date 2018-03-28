@@ -431,7 +431,7 @@ reference: http://docs.ansible.com/ansible/latest/playbooks_blocks.html
 
 http://docs.ansible.com/ansible/latest/modules/list_of_all_modules.html
 
-### aupt - Manages apt-packages
+### apt - Manages apt-packages
 
 reference: http://docs.ansible.com/ansible/latest/apt_module.html
 
