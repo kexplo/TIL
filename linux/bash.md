@@ -139,6 +139,22 @@ Note: adding `-g` flag to the `declare` statement (e.g. `declare -rg a="a1"`) ma
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 ```
 
+
+## Print error line
+
+ref: https://unix.stackexchange.com/a/39660
+
+```bash
+#! /bin/bash
+
+err_report() {
+    echo "Error on line $1"
+}
+
+trap 'err_report $LINENO' ERR
+#    └─ 'single quotes to prevent `$LINENO` from being expanded when the trap line is first parsed.
+```
+
 ## Snippets
 
 ### Write file with cat
