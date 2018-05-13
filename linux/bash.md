@@ -58,9 +58,13 @@ fi
 ```
 
 ```bash
-if ! command -v docker > /dev/null
-then
-    echo 'docker command not exist'
+def has () {
+    # Or type "$1" &> /dev/null
+    type "$1" > /dev/null 2>1&
+}
+
+if has docker; then
+    echo 'docker command exist'
 fi
 ```
 
