@@ -60,7 +60,7 @@ fi
 ```bash
 def has () {
     # Or type "$1" &> /dev/null
-    type "$1" > /dev/null 2>1&
+    type "$1" > /dev/null 2>&1
 }
 
 if has docker; then
