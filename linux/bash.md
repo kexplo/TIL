@@ -15,6 +15,16 @@ set -euo pipefail
 # SEE: https://www.gnu.org/software/bash/manual/bashref.html#The-Set-Builtin
 ```
 
+## Variable name
+
+Uppercase only variable names are not recommanded.
+
+ref: http://pubs.opengroup.org/onlinepubs/9699919799/basedefs/V1_chap08.html paragraph 4
+
+> Environment variable names used by the utilities in the Shell and Utilities volume of POSIX.1-2017 consist solely of uppercase letters, digits, and the <underscore> ( '_' ) from the characters defined in Portable Character Set and do not begin with a digit.
+> The name space of environment variable names containing lowercase letters is reserved for applications.
+
+
 ## Paremter expansion
 
 ref: http://www.gnu.org/software/bash/manual/bash.html#Shell-Parameter-Expansion
