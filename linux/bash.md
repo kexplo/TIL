@@ -15,6 +15,40 @@ set -euo pipefail
 # SEE: https://www.gnu.org/software/bash/manual/bashref.html#The-Set-Builtin
 ```
 
+## Paremter expansion
+
+ref: http://www.gnu.org/software/bash/manual/bash.html#Shell-Parameter-Expansion
+
+```
+${parameter:-word}
+
+    If parameter is unset or null, the expansion of word is substituted. Otherwise, the value of parameter is substituted.
+
+${parameter:=word}
+
+    If parameter is unset or null, the expansion of word is assigned to parameter. The value of parameter is then substituted. Positional parameters and special parameters may not be assigned to in this way.
+
+${parameter:?word}
+
+    If parameter is null or unset, the expansion of word (or a message to that effect if word is not present) is written to the standard error and the shell, if it is not interactive, exits. Otherwise, the value of parameter is substituted.
+
+${parameter:+word}
+
+    If parameter is null or unset, nothing is substituted, otherwise the expansion of word is substituted.
+
+...
+
+```
+
+## Check environment variable exists
+
+```bash
+if [ "${VARIABLE:-x}" == "x" ]; then
+#               └─ if $VARIABLE is unset or null, set 'x' as default value.
+  echo 'variable is unset or null'
+fi
+```
+
 
 ## check environment variable value
 
