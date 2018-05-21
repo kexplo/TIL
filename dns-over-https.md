@@ -67,3 +67,9 @@ Firefox는 자체적인 DoH 기능을 가지고 있다. Firefox 60부터 사용�
 DoH만 사용하고 싶다면 `network.trr.mode`를 `3`으로 설정하면 된다.
 
 이제 별다른 도구 없이 Firefox에서 자체적으로 DoH를 적용할 수 있다.
+
+## DoH 적용 테스트
+
+DoH가 잘 적용되었는지 확인하기 위해서는 https://dnsleaktest.com/ 등의 사이트를 이용할 수 있다.
+
+위 URL로 접속해서 `Standard Test` 버튼을 눌러보자. 공급자가 `Cloudflare`로 표기되면 성공, 본인이 사용하는 인터넷 사업자 (KT, SKT, ...)가 표기된다면 제대로 적용되지 않은 것이다.
