@@ -6,6 +6,12 @@ WIP
 
 https://simplednscrypt.org/
 
+WIP
+
+## Asuswrt-Merlin
+
+WIP
+
 ## Intra
 
 Android P에서 DoH를 지원하려는 [움직임](https://android-developers.googleblog.com/2018/04/dns-over-tls-support-in-android-p.html)이 보이지만, 현재 최신버전의 Android Oreo에서는 쓸 수 없다.
