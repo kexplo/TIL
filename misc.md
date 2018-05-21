@@ -1,3 +1,38 @@
+# 잡다
+
+짧은 여러가지 주제를 모아 둠
+
+## Table of Contents
+
+* [GPKI 인증서 사태](#GPKI-인증서-사태)
+* [회사 MITM에 대처하는 자세](#회사-MITM에-대처하는-자세)
+
+## GPKI 인증서 사태
+
+얼마전 GPKI 인증서 Wildcard 도메인에 대해 발급되었다는 충격적인 소식을 접했다.
+
+- 참고1: [보안뉴스 기사](http://www.boannews.com/media/view.asp?idx=68221)
+- 참고2: [트위터 쓰레드]( https://twitter.com/_Hoto_Cocoa_/status/981538520064905221)
+
+트위터 쓰레드를 보면 내용이 가관이다. `*.or.kr`, `*.co.kr`, ... 등의 도메인에 대해 승인 되어있다. 심지어 `192.168`로 시작하는 내부 아이피에 대한 등록도 있다고 한다.
+
+해당 트위터 쓰레드의 하단에는 후속 조치에 대한 내용도 있다.
+
+후속 조치를 보면, [문제된 인증서를 폐기할 예정](https://twitter.com/_Hoto_Cocoa_/status/982479767801741312)에 있다고 하고, 최신 업데이트가 적용된 Windows에서 [GPKI 인증서가 신뢰되지 않게](https://twitter.com/_Hoto_Cocoa_/status/984800333095288832) 변경되었다고 한다.
+
+원래는 Windows에서 GPKI 인증서가 신뢰 상태였기 때문에 문제가 되었다.
+
+Firefox 처럼 OS의 인증서를 무조건 신뢰하지 않는 브라우저라면 괜찮겠지만, IE, Edge, Chrome 등의 브라우저를 쓰면 브라우저가 인증서를 신뢰하게 된다.
+
+혹시 GPKI 인증서를 무력화 시키는 방법이 필요할 수도 있으니, 인터넷에 떠돌던 GPKI 인증서를 신뢰하지 않게 만드는 방법을 링크해 둔다.
+
+https://twitter.com/hibiyasleep/status/981559511595999233
+
+아래 순서대로 하면 된다:
+
+`컴퓨터 인증서 관리` -> `신뢰할 수 있는 루트 인증 기관` -> `인증서` -> `GPKIRootCA1`의 속성 -> `이 인증서의 모든 용도를 사용 안 함`
+
+
 ## 회사 MITM에 대처하는 자세
 
 회사에서 MITM을 걸고 있기 때문에, `curl` 등의 명령어는 전부 실패한다.
@@ -6,7 +41,6 @@
 $ curl https://google.com
 curl: (60) SSL certificate problem: self signed certificate in certificate chain
 More details here: http://curl.haxx.se/docs/sslcerts.html
-
 curl performs SSL certificate verification by default, using a "bundle"
  of Certificate Authority (CA) public keys (CA certs). If the default
  bundle file isn't adequate, you can specify an alternate file
