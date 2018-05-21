@@ -21,6 +21,7 @@ Infra앱에서는 Cloudflare와 Google, 두 가지의 DoH 서버를 설정할 �
 로깅? 궁금해서 찾아보니 theregister라는 곳의 [기사](https://www.theregister.co.uk/2018/04/03/cloudflare_dns_privacy/)에서 Cloudflare는 로그를 24-48시간 보관하지만, Google은 장기간 보관한다고 한다. 아무리 Google이라지만 나의 요청 기록이 없어지지 않고 장기간 남는다는 것은 꺼림직할 것 같다.
 
 > // ref: https://www.theregister.co.uk/2018/04/03/cloudflare_dns_privacy/
+>
 > In this Cloudflare's venture is similar to Google's Public DNS (8.8.8.8), which claims that it keeps some data for just 24 to 48 hours. Google, however, keeps other non-personally identifiable information for longer periods.
 
 
