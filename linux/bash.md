@@ -187,6 +187,42 @@ trap 'err_report $LINENO' ERR
 #    └─ 'single quotes to prevent `$LINENO` from being expanded when the trap line is first parsed.
 ```
 
+## Tokenize a string
+
+```bash
+string="hello;world"
+IFS=';' read -r -a tokens <<< "$string"
+echo "${tokens[*]}"
+```
+
+## What is '<<<' ?
+
+ref: https://stackoverflow.com/a/16045687
+
+`<<<` is bash-specific redirection operator.
+
+Bash:
+
+```bash
+if grep -q "^127.0.0." <<< "$RESULT"
+then
+    echo IF-THEN
+fi
+```
+
+No Bash compatible:
+
+```bash
+if echo "$RESULT" | grep -q "^127.0.0."
+then
+    echo IF-THEN
+fi
+```
+
+## Here Document
+
+ref: http://www.gnu.org/software/bash/manual/bashref.html#Here-Documents
+
 ## Snippets
 
 ### Write file with cat
