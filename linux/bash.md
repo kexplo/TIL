@@ -21,9 +21,8 @@ Uppercase only variable names are not recommanded.
 
 ref: http://pubs.opengroup.org/onlinepubs/9699919799/basedefs/V1_chap08.html paragraph 4
 
-> Environment variable names used by the utilities in the Shell and Utilities volume of POSIX.1-2017 consist solely of uppercase letters, digits, and the <underscore> ( '_' ) from the characters defined in Portable Character Set and do not begin with a digit.
+> Environment variable names used by the utilities in the Shell and Utilities volume of POSIX.1-2017 consist solely of uppercase letters, digits, and the \<underscore\> ( '_' ) from the characters defined in Portable Character Set and do not begin with a digit.
 > The name space of environment variable names containing lowercase letters is reserved for applications.
-
 
 ## Paremter expansion
 
@@ -59,7 +58,6 @@ if [ "${VARIABLE:-x}" == "x" ]; then
 fi
 ```
 
-
 ## check environment variable value
 
 ```bash
@@ -69,9 +67,7 @@ then
 fi
 ```
 
-
 ## check directory exists
-
 
 ```bash
 if [ ! -d "/path/to/check" ]
@@ -80,9 +76,7 @@ then
 fi
 ```
 
-
 ## check file exists
-
 
 ```bash
 if [ ! -f /path/to/check ]
@@ -90,7 +84,6 @@ then
     echo 'file is not exist'
 fi
 ```
-
 
 ## check command exists
 
@@ -112,7 +105,6 @@ if has docker; then
 fi
 ```
 
-
 ## check process is running
 
 ```bash
@@ -120,7 +112,6 @@ if pgrep ssh > /dev/null; then
     echo 'ssh is running'
 fi
 ```
-
 
 ## pass environment variable
 
@@ -167,7 +158,6 @@ OPTIONS
            via the environment.
 ```
 
-
 ## What is difference in `declare -r` and `readonly` in bash?
 
 reference: https://stackoverflow.com/a/30362832/1545387
@@ -175,14 +165,12 @@ reference: https://stackoverflow.com/a/30362832/1545387
 So one difference is `readonly` will make the variable scope global.  `declare` makes variable scope local (which is expected).
 Note: adding `-g` flag to the `declare` statement (e.g. `declare -rg a="a1"`) makes the variable scope global. 
 
-
 ## Getting the source directory of a Bash script from within
 
 ```bash
 # from: https://stackoverflow.com/a/246128/1545387
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 ```
-
 
 ## Print error line
 
