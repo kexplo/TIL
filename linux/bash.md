@@ -95,7 +95,7 @@ fi
 ```
 
 ```bash
-def has () {
+function has () {
     # Or type "$1" &> /dev/null
     type "$1" > /dev/null 2>&1
 }
