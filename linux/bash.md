@@ -233,3 +233,12 @@ blah blah
 blah blah
 EOF
 ```
+
+### Confirm message
+
+```bash
+read -p "Are you sure? [y/N]: " -r
+if [[ ! "$REPLY" =~ ^[Yy]$ ]]; then
+  exit 1
+fi
+```
