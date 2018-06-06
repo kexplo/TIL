@@ -28,6 +28,8 @@ ref: http://pubs.opengroup.org/onlinepubs/9699919799/basedefs/V1_chap08.html par
 
 ref: http://www.gnu.org/software/bash/manual/bash.html#Shell-Parameter-Expansion
 
+> When not performing substring expansion, using the form described below (e.g., ‘:-’), Bash tests for a parameter that is unset or null. Omitting the colon results in a test only for a parameter that is unset. Put another way, if the colon is included, the operator tests for both parameter’s existence and that its value is not null; if the colon is omitted, the operator tests only for existence. 
+
 ```
 ${parameter:-word}
 
@@ -222,6 +224,47 @@ fi
 ## Here Document
 
 ref: http://www.gnu.org/software/bash/manual/bashref.html#Here-Documents
+
+## Empty array expansion with 'set -u'
+
+ref: https://stackoverflow.com/a/7577209
+
+```bash
+$ set -u
+$ arr=()
+$ echo "foo: '${arr[@]}'"
+bash: arr[@]: unbound variable
+```
+
+Use `${arr[@]+"${arr[@]}"}` instead of `"${arr[@]}"`.
+
+```bash
+$ function args { perl -E'say 0+@ARGV; say "$_: $ARGV[$_]" for 0..$#ARGV' -- "$@" ; }
+
+$ set -u
+
+$ arr=()
+
+$ args "${arr[@]}"
+-bash: arr[@]: unbound variable
+
+$ args ${arr[@]+"${arr[@]}"}
+0
+
+$ arr=("")
+
+$ args ${arr[@]+"${arr[@]}"}
+1
+0: 
+
+$ arr=(a b c)
+
+$ args ${arr[@]+"${arr[@]}"}
+3
+0: a
+1: b
+2: c
+```
 
 ## Snippets
 
