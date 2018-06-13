@@ -41,3 +41,11 @@ Service time in **milliseconds.** While `await` counts the whole wait time of re
 `%util`
 
 Percentage of CPU time during whchi I/O requests were issed to the device. High `%util` doesn’t always say that there is an overload. If the device serves requests in parallel, this value can constantly be high.
+
+# nc, netcat
+
+## Send packets using nc
+
+```bash
+printf 'GET / HTTP/1.0\r\nHost: example.com\r\n\r\n' | nc example.com 80
+```
