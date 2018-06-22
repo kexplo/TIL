@@ -285,3 +285,9 @@ if [[ ! "$REPLY" =~ ^[Yy]$ ]]; then
   exit 1
 fi
 ```
+
+### Extract tar.gz with wget
+
+```bash
+$ wget -qO- http://tar.gz.link | tar xvz -C /target/directory
+```
