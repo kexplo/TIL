@@ -291,3 +291,23 @@ fi
 ```bash
 $ wget -qO- http://tar.gz.link | tar xvz -C /target/directory
 ```
+
+### Check sudo requires password
+
+ref: https://askubuntu.com/a/357222
+
+```bash
+if sudo -n true 2>/dev/null; then
+  echo "I got sudo"
+else
+  echo "I don't have sudo"
+fi
+```
+
+```bash
+# explain
+sudo -n true 2>/dev/null;
+#     │ └─ If the password is not required, then this expression is true.
+#     └─ (non-interactive) option. Avoid prompting.
+#        if a password required, sudo will display an error and exit.
+```
