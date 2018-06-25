@@ -1,6 +1,6 @@
 # iostat
 
-```
+```txt
 iostat -xmdz 1
 #       ││││ └─ repeat every 1 second
 #       │││└─ omit output for any devices for which there was no activity during the sample period
@@ -9,7 +9,7 @@ iostat -xmdz 1
 #       └─ display extended statistics
 ```
 
-```
+```txt
 Device:  rrqm/s   wrqm/s     r/s     w/s    rMB/s    wMB/s avgrq-sz avgqu-sz   await r_await w_await  svctm  %util
 xvdf       0.00  2934.00    0.00 2000.00     0.00    48.69    49.86     2.59    1.30    0.00    1.30   0.50  99.60
 ```
@@ -49,3 +49,21 @@ Percentage of CPU time during whchi I/O requests were issed to the device. High 
 ```bash
 printf 'GET / HTTP/1.0\r\nHost: example.com\r\n\r\n' | nc example.com 80
 ```
+
+# htop
+
+## color mean
+
+Hitting <kbd>F1</kbd> or <kbd>h</kbd>
+
+![](images/2018-06-25-09-46-54.png)
+
+
+## shortcuts
+
+- `h`: help
+- `t`: tree view
+- `p`: toggle program path
+- `P M T`: sort by CPU%, MEM% or TIME
+- `e`: show process environment
+- `l`: list open files with lsof
