@@ -120,3 +120,20 @@ SELECT version
 FROM version_sorting
 ORDER BY CAST(version AS UNSIGNED), version;
 ```
+
+## mysqldump
+
+```bash
+# dump whole database
+$ mysqldump <host> -p -u <user> <database> > dump.sql
+```
+
+```bash
+# dump specific table(s)
+$ mysqldump <host> -p -u <user> <database> <table> [<table> <table> ...] > dump.sql
+```
+
+```bash
+# restore
+$ mysql -u <user> -p < dump.sql
+```
