@@ -12,9 +12,15 @@ $ awk '/^hello/ {a=$0} END{print a}' test.txt
 hello3
 ```
 
-
 ## Print the line number of last match
 
 ```bash
-$ akw '/^hello/ {a=NR} END{print a}' test.txt
+$ awk '/^hello/ {a=NR} END{print a}' test.txt
+```
+
+## Print CSV Column
+
+```bash
+# print first column of csv
+$ awk -F '"*,"*' '{print $1}' data.csv
 ```
