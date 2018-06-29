@@ -37,3 +37,20 @@ $ paste -d , test1.csv test2.csv
 1,2,5,6
 3,4,7,8
 ```
+
+
+### merge two CSV file
+
+```bash
+$ cat test1.csv
+1,2
+3,4
+
+$ cat test2.csv
+5,6,7
+8,9,0
+
+$ cut -d , -f 2 test2.csv | paste -d , test1.csv -
+1,2,6
+3,4,9
+```
