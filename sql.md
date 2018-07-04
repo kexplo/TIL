@@ -125,12 +125,12 @@ ORDER BY CAST(version AS UNSIGNED), version;
 
 ```bash
 # dump whole database
-$ mysqldump <host> -p -u <user> <database> > dump.sql
+$ mysqldump -h <host> -p -u <user> <database> > dump.sql
 ```
 
 ```bash
 # dump specific table(s)
-$ mysqldump <host> -p -u <user> <database> <table> [<table> <table> ...] > dump.sql
+$ mysqldump -h <host> -p -u <user> <database> <table> [<table> <table> ...] > dump.sql
 ```
 
 ```bash
