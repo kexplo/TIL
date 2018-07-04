@@ -38,7 +38,6 @@ $ paste -d , test1.csv test2.csv
 3,4,7,8
 ```
 
-
 ### merge two CSV file
 
 ```bash
@@ -53,4 +52,24 @@ $ cat test2.csv
 $ cut -d , -f 2 test2.csv | paste -d , test1.csv -
 1,2,6
 3,4,9
+```
+
+## truncate
+
+```bash
+# reference: manpage
+
+truncate -s<SIZE>
+#         └─ set or adjust the file size by SIZE bytes
+#
+# SIZE may also be prefixed by one of the following modifying characters:
+# '+' extend by, '-' reduce by, '<' at most, '>' at least,
+# '/' round down to multiple of, '%' round up to multiple of.
+```
+
+```bash
+# remove 1 character from file
+$ truncate -s-1 <file>
+# remove 2 character from file
+$ truncate -s-2 <file>
 ```
