@@ -6,6 +6,13 @@
 
 * [GPKI 인증서 사태](#gpki-인증서-사태)
 * [회사 MITM에 대처하는 자세](#회사-mitm에-대처하는-자세)
+  * [Terraform](#terraform)
+  * [npm](#npm)
+  * [Git](#git)
+  * [WSL](#wsl)
+  * [Docker](#docker)
+  * [pip](#pip)
+
 
 ## GPKI 인증서 사태
 
@@ -73,9 +80,9 @@ If you'd like to turn off curl's verification of the certificate, use
 
 하지만 시스템 전역적으로 허용하긴 싫으니 넘어간다.
 
-### terraform
+### Terraform
 
-이제 `terraform`을 보자
+이제 `Terraform`을 보자
 
 `terraform init`을 하면 처참하게 실패한다.
 
@@ -152,9 +159,9 @@ npm ERR!     <https://github.com/npm/npm/issues>
 $ npm config set strict-ssl false
 ```
 
-### git
+### Git
 
-이제 `git`을 실행해 볼까?
+이제 `Git`을 실행해 볼까?
 
 ```bash
 fatal: unable to access 'https://xxxxxxxxxxxxxxxxxxxxx.git/': SSL certificate problem: self signed certificate in certificate chain
@@ -178,7 +185,7 @@ $ git config -g http.sslVerify "false"
 대신 `/usr/local/share/ca-certificates`에 인증서를 넣고, `sudo dpkg-reconfigure ca-certificates`를 설정해주면 된다.
 
 
-### docker
+### Docker
 
 `docker`도 사용해 볼까?
 
