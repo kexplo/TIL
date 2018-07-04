@@ -4,8 +4,8 @@
 
 ## Table of Contents
 
-* [GPKI 인증서 사태](#GPKI-인증서-사태)
-* [회사 MITM에 대처하는 자세](#회사-MITM에-대처하는-자세)
+* [GPKI 인증서 사태](#gpki-인증서-사태)
+* [회사 MITM에 대처하는 자세](#회사-mitm에-대처하는-자세)
 
 ## GPKI 인증서 사태
 
