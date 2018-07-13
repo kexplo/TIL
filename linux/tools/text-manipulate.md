@@ -7,6 +7,7 @@ a,b,c,d
 q,w,e,r
 
 $ cut -d , -f 2- test.csv
+#     ──┬─ ──┬──
 #       │    └─ only select 2 or more fields
 #       └─ use ',' as field delimiter (default: Tab)
 2,3,4
@@ -14,6 +15,7 @@ b,c,d
 w,e,r
 
 $ cut -d , -f 3 test.csv
+#     ──┬─ ──┬──
 #       │    └─ only select 3 field
 #       └─ use ',' as field delimiter (default: Tab)
 3
@@ -33,6 +35,7 @@ $ cat test2.csv
 7,8
 
 $ paste -d , test1.csv test2.csv
+#       ──┬─
 #         └─ use ',' as field delimiter
 1,2,5,6
 3,4,7,8
