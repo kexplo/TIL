@@ -311,3 +311,13 @@ sudo -n true 2>/dev/null;
 #     └─ (non-interactive) option. Avoid prompting.
 #        if a password required, sudo will display an error and exit.
 ```
+
+### Increase counter variable
+
+```bash
+counter=1
+while cond; do
+  # do something
+  counter=$((counter+1))
+done
+```
