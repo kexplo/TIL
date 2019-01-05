@@ -197,6 +197,32 @@ IFS=';' read -r -a tokens <<< "$string"
 echo "${tokens[*]}"
 ```
 
+### divided by newlines
+
+need to use the `-d` switch to `read`:
+
+> `-d` *delim*
+>
+> The first character of delim is used to terminate the input line, rather than newline.
+
+```bash
+$ string=$'hello\nworld'
+$ IFS=$'\n' read -r -d '' -a arr < <(printf '%s\0' "$string")
+$ declare -p arr
+declare -a arr='([0]="hello" [1]="world")'
+```
+
+Or
+
+```bash
+IFS=$'\n' read -r -d '' -a arr <<< "$var"
+```
+
+In this case, the content of `arr` is the same; the only difference is that the return code of `read` is 1 (failure).
+
+reference: https://stackoverflow.com/a/28417633/1545387
+
+
 ## What is '<<<' ?
 
 ref: https://stackoverflow.com/a/16045687
