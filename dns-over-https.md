@@ -1,18 +1,37 @@
-WIP
+# WIP
 
 # DNS over HTTPS (DoH)
 
+HTTPS를 사용한다고 해도 DNS 쿼리는 암호화되지 않은 평문으로 전송이 된다. 그래서 어떤 사이트를 방문하고 있는지 감청할 수 있다.
+
+DNS over HTTPS(DoH)는 DNS 쿼리를 HTTPS 프로토콜을 암호화된 방법으로 주고받는 방법이다. 이 방법을 통해 감청 같은 사생활 침해에서 벗어날 수 있다.
+
+SEE: https://en.wikipedia.org/wiki/DNS_over_HTTPS
+
+## Cloudflare 1.1.1.1
+
+DoH를 제공하는 업체는 많이 있지만, 가장 유명하고 요청 로그를 영속적으로 보관하지 않는 업체로 Cloudflare가 있다.
+
+Cloudflare는 `1.1.1.1` 주소로 DNS를 제공한다. 하지만 DNS 주소를 변경한다고 해서 DoH가 적용되는 것은 아니다.
+
+Cloudflare는 자체적으로 만든 Mobile Apps를 제공하며, 이 앱을 통해 DoH가 적용된 DNS를 사용할 수 있다.
+
+- [iOS](https://itunes.apple.com/us/app/1-1-1-1-faster-internet/id1423538627?mt=8)
+- [Android](https://play.google.com/store/apps/details?id=com.cloudflare.onedotonedotonedotone)
+
 ## Simple DNSCrypt
 
-https://simplednscrypt.org/
+PC에서는 Simple DNSCrypt를 이용해 DoH를 사용할 수 있다. DNS 제공 업체를 고를 수 있으며, 개인적으로는 DNS 쿼리를 영속적으로 저장하지 않는 업체를 추천한다. (Cloudflare 등)
 
-WIP
+https://simplednscrypt.org/
 
 ## Asuswrt-Merlin
 
 WIP
 
 ## Intra
+
+**UPDATE**: 최근 출시된 Cloudflare의 공식 [Android 앱](https://play.google.com/store/apps/details?id=com.cloudflare.onedotonedotonedotone)을 권장한다.
 
 Android P에서 DoH를 지원하려는 [움직임](https://android-developers.googleblog.com/2018/04/dns-over-tls-support-in-android-p.html)이 보이지만, 현재 최신버전의 Android Oreo에서는 쓸 수 없다.
 
@@ -30,13 +49,13 @@ Infra앱에서는 Cloudflare와 Google, 두 가지의 DoH 서버를 설정할 �
 >
 > In this Cloudflare's venture is similar to Google's Public DNS (8.8.8.8), which claims that it keeps some data for just 24 to 48 hours. Google, however, keeps other non-personally identifiable information for longer periods.
 
-
 ## DNSCloak
+
+**UPDATE**: 최근 출시된 Cloudflare의 공식 [iOS 앱](https://itunes.apple.com/us/app/1-1-1-1-faster-internet/id1423538627?mt=8)을 권장한다.
 
 iOS에서는 [DNSCloak](https://itunes.apple.com/kr/app/dnscloak-dnscrypt-doh-client/id1330471557?mt=8) 이라는 앱을 사용할 수 있다.
 
 Infra와 마찬가지로 내부적으로 VPN을 맺어서 DoH를 적용하는 방식인 것 같다.
-
 
 ## Firefox
 
