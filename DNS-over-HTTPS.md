@@ -4,7 +4,7 @@
 
 HTTPS를 사용한다고 해도 DNS 쿼리는 암호화되지 않은 평문으로 전송이 된다. 그래서 어떤 사이트를 방문하고 있는지 감청할 수 있다.
 
-DNS over HTTPS(DoH)는 DNS 쿼리를 HTTPS 프로토콜을 암호화된 방법으로 주고받는 방법이다. 이 방법을 통해 감청 같은 사생활 침해에서 벗어날 수 있다.
+DNS over HTTPS(DoH)는 DNS 쿼리를 HTTPS 프로토콜을 이용하여 암호화된 방법으로 주고받는 방법이다. 이 방법을 통해 감청 같은 사생활 침해에서 벗어날 수 있다.
 
 SEE: https://en.wikipedia.org/wiki/DNS_over_HTTPS
 
