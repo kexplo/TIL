@@ -1,5 +1,19 @@
 # 👷 WIP
 
+# Table of Contents
+
+- [DNS over HTTPS (DoH)](#dns-over-https-doh)
+  - [Cloudflare 1.1.1.1](#cloudflare-1111)
+  - [PC](#pc)
+    - [Simple DNSCrypt](#simple-dnscrypt)
+  - [Router](#router)
+    - [Asuswrt-Merlin](#asuswrt-merlin)
+  - [Android](#android)
+  - [iOS](#ios)
+  - [Firefox](#firefox)
+  - [DoH 적용 테스트](#doh-적용-테스트)
+- [ESNI (Encrypted Server Name Indication)](#esni-encrypted-server-name-indication)
+
 # DNS over HTTPS (DoH)
 
 HTTPS를 사용한다고 해도 DNS 쿼리는 암호화되지 않은 평문으로 전송이 된다. 그래서 어떤 사이트를 방문하고 있는지 감청할 수 있다.
