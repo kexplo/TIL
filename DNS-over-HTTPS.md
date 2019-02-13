@@ -19,49 +19,57 @@ Cloudflare는 자체적으로 만든 Mobile Apps를 제공하며, 이 앱을 통
 - [iOS](https://itunes.apple.com/us/app/1-1-1-1-faster-internet/id1423538627?mt=8)
 - [Android](https://play.google.com/store/apps/details?id=com.cloudflare.onedotonedotonedotone)
 
-## Simple DNSCrypt
+## PC
 
-PC에서는 Simple DNSCrypt를 이용해 DoH를 사용할 수 있다. DNS 제공 업체를 고를 수 있으며, 개인적으로는 DNS 쿼리를 영속적으로 저장하지 않는 업체를 추천한다. (Cloudflare 등)
+### Simple DNSCrypt
 
 https://simplednscrypt.org/
 
-## Asuswrt-Merlin
+PC에서는 Simple DNSCrypt를 이용해 DoH를 사용할 수 있다. DNS 제공 업체를 고를 수 있으며, 개인적으로는 DNS 쿼리 로그를 영속적으로 저장하지 않는 업체를 추천한다. (Cloudflare 등)
 
-👷 WIP
-
-## Intra
-
-**UPDATE**: 최근 출시된 Cloudflare의 공식 [Android 앱](https://play.google.com/store/apps/details?id=com.cloudflare.onedotonedotonedotone)을 권장한다.
-
-Android P에서 DoH를 지원하려는 [움직임](https://android-developers.googleblog.com/2018/04/dns-over-tls-support-in-android-p.html)이 보이지만, 현재 최신버전의 Android Oreo에서는 쓸 수 없다.
-
-[Infra](https://play.google.com/store/apps/details?id=app.intra&hl=en_US)는 Android에서 DoH를 사용할 수 있게 해주는 앱이다.
-
-동작 방식은 내부적으로 VPN을 맺어서 모든 연결에 대해 DoH를 적용하는 방식인 것 같다.
-
-Infra앱에서는 Cloudflare와 Google, 두 가지의 DoH 서버를 설정할 수 있다.
-
-보통은 Cloudflare를 추천한다. 로깅이슈가 있어서 그렇다고 한다. 
-
-로깅? 궁금해서 찾아보니 theregister라는 곳의 [기사](https://www.theregister.co.uk/2018/04/03/cloudflare_dns_privacy/)에서 Cloudflare는 로그를 24-48시간 보관하지만, Google은 장기간 보관한다고 한다. 아무리 Google이라지만 나의 요청 기록이 없어지지 않고 장기간 남는다는 것은 꺼림직할 것 같다.
+로그 저장? theregister라는 곳의 [기사](https://www.theregister.co.uk/2018/04/03/cloudflare_dns_privacy/)에서 Cloudflare는 로그를 24-48시간 보관하지만, Google은 장기간 보관한다고 한다. 아무리 Google이라지만 나의 요청 기록이 없어지지 않고 장기간 남는다는 것은 꺼림직할 것 같다.
 
 > // ref: https://www.theregister.co.uk/2018/04/03/cloudflare_dns_privacy/
 >
 > In this Cloudflare's venture is similar to Google's Public DNS (8.8.8.8), which claims that it keeps some data for just 24 to 48 hours. Google, however, keeps other non-personally identifiable information for longer periods.
 
-## DNSCloak
+## Router
 
-**UPDATE**: 최근 출시된 Cloudflare의 공식 [iOS 앱](https://itunes.apple.com/us/app/1-1-1-1-faster-internet/id1423538627?mt=8)을 권장한다.
+### Asuswrt-Merlin
 
-iOS에서는 [DNSCloak](https://itunes.apple.com/kr/app/dnscloak-dnscrypt-doh-client/id1330471557?mt=8) 이라는 앱을 사용할 수 있다.
+👷 WIP
 
-Infra와 마찬가지로 내부적으로 VPN을 맺어서 DoH를 적용하는 방식인 것 같다.
+## Android
+
+~~Android P에서 DoH를 지원하려는 [움직임](https://android-developers.googleblog.com/2018/04/dns-over-tls-support-in-android-p.html)이 보이지만, 현재 최신버전의 Android Oreo에서는 쓸 수 없다.~~
+
+Android Pie 부터는 `Private DNS Mode`가 추가되어 DoH를 사용할 수 있다. 자세한 것은 [링크](https://blog.cloudflare.com/enable-private-dns-with-1-1-1-1-on-android-9-pie/) 참고
+
+Android Pie 미만에서는 서드파티 앱을 통해 DoH를 사용할 수 있다, 대표적으로 Cloudflare 공식 앱과 Intra 앱이 있다.
+
+Cloudflare DNS를 사용할 것이라면 Cloudflare 공색 앱을 사용하는 것을 권장한다.
+
+- [Cloudflare 공식 앱](https://play.google.com/store/apps/details?id=com.cloudflare.onedotonedotonedotone)
+- [Intra](https://play.google.com/store/apps/details?id=app.intra&hl=en_US)
+
+둘 다, 내부적으로 VPN을 만들어서 모든 연결에 대해 DoH를 적용하는 방식으로 동작한다. 앱을 활성화 시키면 Andorid에서 VPN 연결중이라고 뜨게 된다.
+
+Infra앱에서는 Cloudflare와 Google, 두 가지의 DoH 서버를 설정할 수 있다.
+
+[Simple DNSCrypt](#simple-dnscrypt) 항목해서 설명한 것 처럼, 보통은 DNS 로그를 영속적으로 저장하지 않는 Cloudflare를 추천한다.
+
+## iOS
+
+iOS에서는 Cloudflare 공색 앱과 DNSCloak 앱을 사용해서 DoH를 사용할 수 있다. Android와 마찬가지로 VPN 기능을 활용하는 방식이다.
+
+- [Cloudflare 공색 앱](https://itunes.apple.com/us/app/1-1-1-1-faster-internet/id1423538627?mt=8)
+- [DNSCloak](https://itunes.apple.com/kr/app/dnscloak-dnscrypt-doh-client/id1330471557?mt=8)
 
 ## Firefox
 
 Firefox는 자체적인 DoH 기능을 가지고 있다. Firefox 60부터 사용할 수 있다. 이 글을 작성하는 시점에서는 Android와 Windows용 Firefox가 60 버전 이상인 것을 확인했다.
 
-주소창에 `about:config`를 입력해 고흡 관경 설정 페이지로 이동한다. 
+주소창에 `about:config`를 입력해 고흡 관경 설정 페이지로 이동한다.
 
 상단의 `검색`창에 `network.trr`을 입력해서 `network.trr`로 시작하는 설정들을 모아 볼 수 있게한다.
 
@@ -102,3 +110,6 @@ DoH가 잘 적용되었는지 확인하기 위해서는 https://dnsleaktest.com/
 # ESNI (Encrypted Server Name Indication)
 
 👷 WIP
+
+- https://blog.cloudflare.com/encrypted-sni/
+- https://www.cloudflare.com/ssl/encrypted-sni/
