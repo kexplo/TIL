@@ -70,9 +70,18 @@ parallel job ::: 1 2 3 4
 ## Options
 
 - `--progress` : Show progress
-- `-j N`, `--jobs N` : Specifies the number of jobs to be run. `0` means as many as possible.
-- `--joblog` :
-- `--resume` :
+- `-j N`, `--jobs N` : Specifies the number of jobs to be run. `0` means as many as possible
+- `--joblog` : Write log file of executed jobs
+- `--resume` : Resumes unfinished jobs by reading joblog (`--joblog`)
+- `--resume-failed` : Retry and resumes all failed jobs by reading joblog (`--joblog`)
+
+## Graceful shutdown
+
+Send the signal **SIGTERM** to parallel process. **parallel** waiting for currently running jobs to complete and do not start new jobs.
+
+```bash
+killall -TERM parallel
+```
 
 ## References
 
