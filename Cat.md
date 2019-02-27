@@ -12,7 +12,8 @@ Pica is the term used for the behavior of eating non-food material.
 - **Environmental factors**: Stress, Boredom or Lack of Attention
 - **Compulsive disorder**
 
-references:
+## References
+
 - https://www.catbehaviorassociates.com/pica/
 - https://pets.webmd.com/cats/guide/unusual-cat-cravings#1
 - https://pets.stackexchange.com/a/1617

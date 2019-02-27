@@ -28,7 +28,6 @@ public:
 
 See also: https://en.cppreference.com/w/cpp/language/using_declaration
 
-
 ## Read a whole binary file
 
 ```cpp
