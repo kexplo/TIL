@@ -5,12 +5,12 @@
 ```bash
 #!/bin/bash
 set -euo pipefail
-#    ││└─ 'set -o pipefail' will cause a pipeline to return a failure status 
+#    ││└─ 'set -o pipefail' will cause a pipeline to return a failure status
 #    ││   if any command fails.
 #    │└ Treat unset variables and parameters other than the special parameters
 #    │  ‘@’ or ‘*’ as an error when performing parameter expansion.
-#    └ Exit immediately if a pipeline, which may consist of a single 
-#      simple command, a list, or a compound command returns a non-zero status. 
+#    └ Exit immediately if a pipeline, which may consist of a single
+#      simple command, a list, or a compound command returns a non-zero status.
 #
 # SEE: https://www.gnu.org/software/bash/manual/bashref.html#The-Set-Builtin
 ```
@@ -28,7 +28,7 @@ ref: http://pubs.opengroup.org/onlinepubs/9699919799/basedefs/V1_chap08.html par
 
 ref: http://www.gnu.org/software/bash/manual/bash.html#Shell-Parameter-Expansion
 
-> When not performing substring expansion, using the form described below (e.g., ‘:-’), Bash tests for a parameter that is unset or null. Omitting the colon results in a test only for a parameter that is unset. Put another way, if the colon is included, the operator tests for both parameter’s existence and that its value is not null; if the colon is omitted, the operator tests only for existence. 
+> When not performing substring expansion, using the form described below (e.g., ‘:-’), Bash tests for a parameter that is unset or null. Omitting the colon results in a test only for a parameter that is unset. Put another way, if the colon is included, the operator tests for both parameter’s existence and that its value is not null; if the colon is omitted, the operator tests only for existence.
 
 ```
 ${parameter:-word}
@@ -141,19 +141,19 @@ OPTIONS
 
       -f   Use function names only.
 
-      -F   Inhibit the display of function definitions; 
-           only the function name and attributes are printed. 
+      -F   Inhibit the display of function definitions;
+           only the function name and attributes are printed.
            (implies -f)
 
-      -i   The variable is to be treated as an integer; 
-           arithmetic evaluation is performed when the 
+      -i   The variable is to be treated as an integer;
+           arithmetic evaluation is performed when the
            variable is assigned a value.
 
-      -p   Display the attributes and values of each name. 
+      -p   Display the attributes and values of each name.
            When `-p' is used, additional options are ignored.
 
       -r   Make names readonly. These names cannot then
-           be assigned values by subsequent assignment statements 
+           be assigned values by subsequent assignment statements
            or unset.
 
       -x   Mark each name for export to subsequent commands
@@ -165,7 +165,7 @@ OPTIONS
 reference: https://stackoverflow.com/a/30362832/1545387
 
 So one difference is `readonly` will make the variable scope global.  `declare` makes variable scope local (which is expected).
-Note: adding `-g` flag to the `declare` statement (e.g. `declare -rg a="a1"`) makes the variable scope global. 
+Note: adding `-g` flag to the `declare` statement (e.g. `declare -rg a="a1"`) makes the variable scope global.
 
 ## Getting the source directory of a Bash script from within
 
@@ -280,7 +280,7 @@ $ arr=("")
 
 $ args ${arr[@]+"${arr[@]}"}
 1
-0: 
+0:
 
 $ arr=(a b c)
 
