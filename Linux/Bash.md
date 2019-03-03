@@ -222,7 +222,6 @@ In this case, the content of `arr` is the same; the only difference is that the 
 
 reference: https://stackoverflow.com/a/28417633/1545387
 
-
 ## What is '<<<' ?
 
 ref: https://stackoverflow.com/a/16045687
@@ -347,3 +346,21 @@ while cond; do
   counter=$((counter+1))
 done
 ```
+
+### Read a file line by line
+
+```bash
+while IFS= read -r line; do
+  echo "$line"
+done < 'file.txt'
+```
+
+### Strip string
+
+Trim leading and trailing spaces
+
+```bash
+awk '{$1=$1};1'
+```
+
+reference: https://unix.stackexchange.com/a/205854
