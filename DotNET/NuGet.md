@@ -33,23 +33,38 @@ reference: https://stackoverflow.com/a/44463578
 
 ## Install packages from Multiple sources
 
-Add Multiple Sources to `Nuget.Config` file
+Add Multiple Sources to `NuGet.Config` file
 
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
 <configuration>
   <packageSources>
     <add key="my private nuget source" value="http:/...." />
-    <add key="nuget.org" value="https://api.nuget.org/v3/index.json" />
+    <add key="offical nuget.org" value="https://api.nuget.org/v3/index.json" />
   </packageSources>
 </configuration>
 ```
 
-Copy `Nuget.Config` to `$HOME/.config/Nuget/Nuget.Config`(or `$HOME/.nuget/Nuget/Nuget.Config`).
-SEE [NuGet Config file locations](https://docs.microsoft.com/ko-kr/nuget/consume-packages/configuring-nuget-behavior#config-file-locations-and-uses)
+Copy `NuGet.Config` to Config file locations.
 
-And, Run `dotnet restore`
+Config file locations:
 
-**NOTE**: Do not use `dotnet restore --configfile <Nuget.Config location>` or `dotnet restore --source http://.. --source http://..`. These options can't install packages from multiple sources. I think it is a bug (from .NET Core 2.2.1.05 Ubuntu 16.04)
+- `$HOME/.config/NuGet/NuGet.Config`(or `$HOME/.nuget/NuGet/NuGet.Config`).
+- Solution Root Directory
+- Project Root Directory
 
-see also, https://github.com/NuGet/Home/issues/6140
+SEE [NuGet Config file locations](https://docs.microsoft.com/en-us/nuget/consume-packages/configuring-nuget-behavior#config-file-locations-and-uses)
+
+**IMPORTANT**: the paths and the `NuGet.Config` file name are CASE SENSITIVE.
+
+And, Run `dotnet restore` or `dotnet restore --configfile <NuGet.Config location>`
+
+If above instructions doesn't work, it is a bug. there is [a issue](https://github.com/NuGet/Home/issues/6140).
+
+You can temporarily fix the bug by following the instruction below:
+
+```bash
+$ dotnet restore --source "http://private-nuget-repo-source" || true
+$ dotnet restore --source "https://api.nuget.org/v3/index.json" || true
+$ dotnet restore --source "https://api.nuget.org/v3/index.json;http://private-nuget-repo-source"
+```
