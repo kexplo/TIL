@@ -8,6 +8,6 @@ with StringIO() as buffer:
 
 ```python
 # python2
-with contextlib.closing(StringIO)) as buffer:
+with contextlib.closing(StringIO()) as buffer:
     buffer.write('hello')
 ```
