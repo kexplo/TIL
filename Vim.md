@@ -1,6 +1,6 @@
 ## Create new file in Explorer mode
 
-hit to `%`.
+Type `%` in the explorer mode.
 
 
 ## Format JSON with jq
