@@ -7,7 +7,7 @@ https://www.wireguard.com/
 Install WireGuard.
 
 ```bash
-$ sudo add-apt-repository ppa:wireguard/wireguar
+$ sudo add-apt-repository ppa:wireguard/wireguard
 $ sudo apt install wireguard
 ```
 
