@@ -110,6 +110,12 @@ AllowedIPs = 0.0.0.0/0
 Endpoint = <Server IP:Port>
 ```
 
+Share the client config via QRCode:
+
+```bash
+$ qrencode -t ansiutf8 < wgclient.conf
+```
+
 ## References
 
 - https://www.ckn.io/blog/2017/11/14/wireguard-vpn-typical-setup/
