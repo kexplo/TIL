@@ -26,6 +26,8 @@ $ wg genkey | tee privatekey | wg pubkey > publickey
 
 ## Configure Server
 
+Replace `eth0` with \<your network interface\>.
+
 ```conf
 # /etc/wireguard/wg0.conf
 
@@ -78,6 +80,13 @@ $ wg-quick down wg0
 ```bash
 # Enable the interface as a service.
 $ systemctl enable wg-quick@wg0.service
+```
+
+## Add firewall rule (ufw)
+
+```bash
+$ sudo ufw allow 51820/udp
+$ sudo ufw enable
 ```
 
 ## Show status
