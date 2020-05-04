@@ -17,6 +17,8 @@ $ helm install stable/traefik --name traefik --set serviceType=NodePort --namesp
 $ kubectl describe svc traefik --namespace kube-system
 ```
 
+You can also use `serviceType=LoadBalancer` with the LoadBalancer.
+
 ### Enable Dashboard and set Dashboard domain
 
 1. Append below options to `helm install stable/traefik ...` command
@@ -25,10 +27,10 @@ $ kubectl describe svc traefik --namespace kube-system
    --set dashboard.enabled=true,dashboard.domain=traefik-dashboard.local
    ```
 
-2. Confiure DNS record. (/etc/resolve.conf)
+2. Confiure DNS record. (/etc/hosts)
 
    ```bash
-   $ cat '<external-ip or NodeIP> traefik-dashboard.local' >> /etc/resolve.conf
+   $ cat '<external-ip or NodeIP> traefik-dashboard.local' >> /etc/hosts
    ```
 
 ## Routing
