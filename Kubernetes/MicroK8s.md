@@ -37,3 +37,20 @@ link: [list of all Microk8s addons](https://microk8s.io/docs/addons)
 - `microk8s.inspect`: Show System status and collecting logs
 
 SEE: https://microk8s.io/docs/troubleshooting
+
+----
+
+## Do not expose NodePorts externally
+
+`serviceType=NodePort` or `serviceType=LoadBalancer` will open the NodePort externally, even if the firewall(e.g., ufw) was enabled.
+
+[Because `kube-proxy` is writing `iptables` rules.](https://stackoverflow.com/a/53142983)
+
+It can't close but it can set does not expose externally.
+
+```
+# append below line to /var/snap/microk8s/1378/args/kube-proxy
+--nodeport-addresses=["::1/128","127.0.0.1/32"]
+```
+
+reference: https://github.com/kubernetes/kubernetes/pull/89998#issuecomment-611590526
