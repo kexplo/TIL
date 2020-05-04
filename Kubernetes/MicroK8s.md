@@ -24,6 +24,14 @@ $ alias kubectl='microk8s.kubectl'
 - `microk8s.disable <addon>`: Disable microk8s addon
 - `microk8s.kubectl`: Run kubectl
 
+## Recommend addons
+
+- dns (CoreDNS)
+- helm
+- metallb (MetalLB)
+
+link: [list of all Microk8s addons](https://microk8s.io/docs/addons)
+
 ## Troubleshooting
 
 - `microk8s.inspect`: Show System status and collecting logs
