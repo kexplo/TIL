@@ -1,6 +1,41 @@
 # RESTful API
 
-## PUT vs. PATCH
+## What is REST?
+
+**REST**: **Re**presentational **s**tate **t**ransfer.
+
+Six guiding constraints define a RESTful system:
+
+- Client-server Architecture
+- Statelessness
+- Cacheability
+- Layered System
+- Code on demand (optional)
+- Uniform interface
+  - Resource identification in requests
+  - Resource manipulation through representations
+  - Self-descriptive messages
+  - Hypermedia as the engine of application state (HATEOAS)
+
+### reference
+
+- https://en.wikipedia.org/wiki/Representational_state_transfer
+
+## There is no REST API
+
+![](images/2020-06-27-17-41-33.png)
+
+image from http://slides.com/eungjun/rest
+
+- [Microsoft REST API Guidelines](https://github.com/Microsoft/api-guidelines)
+
+> REST doesn’t describe APIs. REST describes the architectural characteristics of an entire system, which includes all of the different components of that system.
+> 
+> from: https://www.howarddierking.com/2016/09/15/there-is-no-rest-api/
+
+----
+
+## PUT vs. PATCH (in HTTP API)
 
 ### TL;DR
 
