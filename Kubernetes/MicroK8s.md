@@ -54,3 +54,5 @@ It can't close but it can set does not expose externally.
 ```
 
 reference: https://github.com/kubernetes/kubernetes/pull/89998#issuecomment-611590526
+
+`127.0.0.0/8` for localhost only ( ref: https://serverfault.com/a/1024340 )
