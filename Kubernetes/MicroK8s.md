@@ -49,10 +49,15 @@ SEE: https://microk8s.io/docs/troubleshooting
 It can't close but it can set does not expose externally.
 
 ```
-# append below line to /var/snap/microk8s/1378/args/kube-proxy
+# append below line to /var/snap/microk8s/current/args/kube-proxy
 --nodeport-addresses=["::1/128","127.0.0.1/32"]
 ```
 
 reference: https://github.com/kubernetes/kubernetes/pull/89998#issuecomment-611590526
 
 `127.0.0.0/8` for localhost only ( ref: https://serverfault.com/a/1024340 )
+
+```
+# append below line to /var/snap/microk8s/current/args/kube-proxy
+--nodeport-addresses=127.0.0.0/8
+```
