@@ -63,3 +63,22 @@ ExecStart=/usr/bin/docker run --rm --name %n redis
 [Install]
 WantedBy=multi-user.target
 ```
+
+## systemd.device
+
+> systemd will dynamically create device units for all kernel devices that are marked with the "systemd" udev tag (by default all block and network devices, and a few others). Note that *if systemd-udevd.service is not running, no device units will be available (for example in a typical container).*
+> 
+> Device units are named after the `/sys/` and `/dev/` paths they control. Example: the device `/dev/sda5` is exposed in systemd as `dev-sda5.device`. For details about the escaping logic used to convert a file system path to a unit name see systemd.unit(5).
+
+from: https://www.freedesktop.org/software/systemd/man/latest/systemd.device.html
+
+### example: make sshd service wait until the Wireguard network interface is ready
+
+add the dependency by adding this following lines to the '[Unit]' section:
+
+```diff
+ [Unit]
+-After=network.target
++After=network.target wg-quick@wg0.service
++Requires=sys-devices-virtual-net-wg0.device
+```
